@@ -1,5 +1,19 @@
 {
-  "dependencies": {
-    "express": "^4.16.4"
-  }
+    "scripts": {
+        "start": "node index.js",
+        "server": "nodemon index.js"
+    },
+    "dependencies": {
+        "express": "^4.16.4"
+    },
+    "name": "webdb-iii-challenge",
+    "version": "1.0.0",
+    "description": "Challenge project for WEB DB III Module",
+    "main": "index.js",
+    "repository": "https://github.com/timothyshores/webdb-iii-challenge.git",
+    "author": "Timothy Shores",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^1.19.0"
+    }
 }
