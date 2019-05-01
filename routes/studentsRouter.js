@@ -45,4 +45,22 @@ router.post('/', (req, res) => {
         : res.status(201).json(message201)
 });
 
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const message200 = { message: `Student id: ${id} was successfully deleted` }
+    const message404 = { message: `Student id: ${id} does not exist` }
+
+    db('students')
+        .where({ id: id })
+        .del()
+        .then(count => {
+            count > 0
+                ? res.status(200).json(message200)
+                : res.status(404).json(message404)
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
 module.exports = router;
