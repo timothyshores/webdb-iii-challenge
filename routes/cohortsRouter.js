@@ -17,6 +17,21 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    const message404 = { message: `Cohort id: ${id}  not found` }
+
+    db('cohorts')
+        .where({ id: id })
+        .first()
+        .then(cohort => {
+            cohort === undefined
+                ? res.status(404).json(message404)
+                : res.status(200).json(cohort)
+        })
+        .catch(err => res.status(500).json(err));
+});
+
 router.post('/', (req, res) => {
     const name = req.body.name;
     const message201 = { message: 'Cohorts requires a valid name' }
@@ -28,5 +43,7 @@ router.post('/', (req, res) => {
             .catch(err => res.status(500).json(err))
         : res.status(201).json(message201)
 });
+
+
 
 module.exports = router;
