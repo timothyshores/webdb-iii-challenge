@@ -32,6 +32,20 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+router.get('/:id/students', (req, res) => {
+    const id = req.params.id;
+    const message404 = { message: `Cohort id: ${id} does not have students` }
+
+    db('students')
+        .then(student => {
+            const studentsInCohort = student.filter(student => student.cohort_id == id);
+            studentsInCohort.length > 0
+                ? res.status(200).json(studentsInCohort)
+                : res.status(404).json(message404);
+        })
+        .catch(err => res.status(500).json(err));
+});
+
 router.post('/', (req, res) => {
     const name = req.body.name;
     const message201 = { message: 'Cohorts requires a valid name' }
