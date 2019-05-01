@@ -17,4 +17,16 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+router.post('/', (req, res) => {
+    const name = req.body.name;
+    const message201 = { message: 'Cohorts requires a valid name' }
+
+    name && (typeof name === 'string')
+        ? db('cohorts')
+            .insert(req.body, 'id')
+            .then(results => res.status(201).json(results))
+            .catch(err => res.status(500).json(err))
+        : res.status(201).json(message201)
+});
+
 module.exports = router;
